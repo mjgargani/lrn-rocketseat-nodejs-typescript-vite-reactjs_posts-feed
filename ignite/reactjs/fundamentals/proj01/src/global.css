@@ -8,8 +8,10 @@
     --gray-800: #202024;
     --gray-900: #121214;
 
-    --green-300: #00B35f;
+    --green-300: #00b35f;
     --green-500: #00875f;
+
+    --red-500: #F75A68;
 }
 
 :focus:not(button) {
