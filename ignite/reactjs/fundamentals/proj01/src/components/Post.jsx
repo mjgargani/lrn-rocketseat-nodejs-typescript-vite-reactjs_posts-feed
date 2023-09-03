@@ -1,33 +1,45 @@
+import { format, formatDistanceToNow } from 'date-fns';
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 import styles from './Post.module.css'
-
-export function Post() {
+import PropTypes from 'prop-types';
+import ptBR from 'date-fns/locale/pt-BR';
+export function Post({ author, content, publishedAt }) {
+    const dateFormat = format(publishedAt, "d de LLLL às HH:mm'h'", { locale: ptBR });
+    const relativeDate = formatDistanceToNow(publishedAt, {
+        locale: ptBR,
+        addSuffix: true
+    })
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <Avatar src="https://avatars.githubusercontent.com/u/46717827?v=4" />
-                    <div className={styles.authorInfo}>
-                        <strong>Rodrigo Gargani Oliveira</strong>
-                        <span>Web Developer</span>
+                    <Avatar src={author.avatarUrl}/>
+                    <div className={styles.name}>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
                 <time
-                    title="11 de Maio às 08:13h"
-                    dateTime="2022-05-11 08:13:30"
+                    title={dateFormat}
+                    dateTime={publishedAt.toISOString()}
                 >
-                    Publicado há 1h
+                    {relativeDate}
                 </time>
             </header>
 
             <div className={styles.content}>
-                <p>Fala galera!</p>
-                <p>Esse é meu post!</p>
-                <p>
-                    <a href="#">http://gargani.dev</a>
-                    <a href="#">http://gargani.dev</a>
-                </p>
+                { 
+                    content.map((el, i) => {
+                        const element = el.type;
+                        if(element === 'p'){
+                            return (<p key={i}>{el.content}</p>)
+                        }
+                        if(element === 'a'){
+                            return (<p key={i}><a href={el.content} target='_blank' rel="noreferrer">{el.content}</a></p>)
+                        }
+                    })
+                }
             </div>
 
             <form className={styles.commentForm}>
@@ -45,4 +57,10 @@ export function Post() {
             </div>
         </article>
     )
+}
+
+Post.propTypes ={
+    author: PropTypes.object,
+    content: PropTypes.arrayOf(PropTypes.object),
+    publishedAt: PropTypes.instanceOf(Date)
 }
