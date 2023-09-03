@@ -15,7 +15,7 @@ export function Post({ author, content, publishedAt }) {
             <header>
                 <div className={styles.author}>
                     <Avatar src={author.avatarUrl}/>
-                    <div className={styles.name}>
+                    <div className={styles.authorInfo}>
                         <strong>{author.name}</strong>
                         <span>{author.role}</span>
                     </div>
