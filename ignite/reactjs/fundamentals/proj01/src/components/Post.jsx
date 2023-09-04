@@ -23,8 +23,8 @@ export function Post({ author, content, publishedAt }) {
         const newComments = [
             {
                 id: comments.length + 1,
-                author: 'Rodrigo G. Oliveira',
-                avatar: 'https://avatars.githubusercontent.com/u/46717827?v=4',
+                author: 'User ' + Date.now(),
+                avatar: `https://xsgames.co/randomusers/assets/avatars/pixel/${Math.round(Math.random()*53)}.jpg`,
                 content: commentInput,
                 publishedAt: new Date(Date.now()),
             },
@@ -90,7 +90,7 @@ export function Post({ author, content, publishedAt }) {
                     placeholder="Deixe um comentário"
                 />
                 <footer>
-                    <button type="submit">Publicar</button>
+                    <button type="submit" disabled={commentInput === ''}>Publicar</button>
                 </footer>
             </form>
 
