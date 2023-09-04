@@ -15,6 +15,7 @@ export function Post({ author, content, publishedAt }) {
             )}.jpg`,
             content: 'Post bem legal',
             publishedAt: new Date(Date.now()),
+            applauses: Math.ceil(Math.random()*100)
         },
     ])
     const [commentInput, setCommentInput] = useState('')
@@ -31,6 +32,7 @@ export function Post({ author, content, publishedAt }) {
                 )}.jpg`,
                 content: commentInput,
                 publishedAt: new Date(Date.now()),
+                applauses: 0
             },
             ...comments,
         ]
@@ -47,14 +49,19 @@ export function Post({ author, content, publishedAt }) {
         setCommentInput(newCommentInput)
     }
 
+    const handleInvalidComment =(event) => {
+        const {target} = event;
+        target.setCustomValidity("Esse campo é obrigatório");
+    }
+
     const deleteComment = (id) => {
         const newComments = comments.filter(el => el.id !== id)
         setComments(newComments)
     }
 
-    const handleInvalidComment =(event) => {
-        const {target} = event;
-        target.setCustomValidity("Esse campo é obrigatório");
+    const applaudComment = (id) => {
+        const newComments = comments.map(el => el.id === id ? { ...el, applauses: el.applauses + 1 } : el)
+        setComments(newComments)
     }
 
     const isCommentDisabled = commentInput.trim() === '';
@@ -128,6 +135,8 @@ export function Post({ author, content, publishedAt }) {
                         avatar={item.avatar}
                         content={item.content}
                         publishedAt={item.publishedAt}
+                        applauses={item.applauses}
+                        onApplaudComment = {() => applaudComment(item.id)}
                         onDeleteComment={() => deleteComment(item.id)}
                     />
                 ))}

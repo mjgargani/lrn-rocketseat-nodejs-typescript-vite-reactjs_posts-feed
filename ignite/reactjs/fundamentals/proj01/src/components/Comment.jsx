@@ -9,6 +9,8 @@ export function Comment({
     avatar,
     content,
     publishedAt,
+    applauses,
+    onApplaudComment,
     onDeleteComment,
 }) {
     return (
@@ -37,9 +39,9 @@ export function Comment({
                 </div>
 
                 <footer>
-                    <button>
+                    <button onClick={onApplaudComment}>
                         <ThumbsUp />
-                        Aplaudir <span>20</span>
+                        Aplaudir <span>{applauses}</span>
                     </button>
                 </footer>
             </div>
@@ -52,5 +54,7 @@ Comment.propTypes = {
     avatar: PropTypes.string,
     content: PropTypes.string,
     publishedAt: PropTypes.instanceOf(Date),
+    applauses: PropTypes.number,
+    onApplaudComment: PropTypes.func,
     onDeleteComment: PropTypes.func,
 }
