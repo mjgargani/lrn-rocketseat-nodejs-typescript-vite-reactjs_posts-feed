@@ -8,9 +8,9 @@ import { newDate } from '../utils/date'
 export function Post({ author, content, publishedAt }) {
     const [comments, setComments] = useState([
         {
-            id: 1,
-            author: 'Rodrigo G. Oliveira',
-            avatar: 'https://avatars.githubusercontent.com/u/46717827?v=4',
+            id: Date.now()+3,
+            author: 'User ' + Date.now(),
+            avatar: `https://xsgames.co/randomusers/assets/avatars/pixel/${Math.round(Math.random()*53)}.jpg`,
             content: 'Post bem legal',
             publishedAt: new Date(Date.now()),
         },
@@ -22,7 +22,7 @@ export function Post({ author, content, publishedAt }) {
 
         const newComments = [
             {
-                id: comments.length + 1,
+                id: Date.now(),
                 author: 'User ' + Date.now(),
                 avatar: `https://xsgames.co/randomusers/assets/avatars/pixel/${Math.round(Math.random()*53)}.jpg`,
                 content: commentInput,
@@ -40,6 +40,11 @@ export function Post({ author, content, publishedAt }) {
         const { target } = event
         const newCommentInput = target.value
         setCommentInput(newCommentInput)
+    }
+
+    const deleteComment = (id) => {
+        const newComments = comments.filter(el => el.id !== id);
+        setComments(newComments);
     }
 
     return (
@@ -64,11 +69,11 @@ export function Post({ author, content, publishedAt }) {
                 {content.map((el) => {
                     const element = el.type
                     if (element === 'p') {
-                        return <p key={el.content}>{el.content}</p>
+                        return <p key={el.content + Date.now()}>{el.content}</p>
                     }
                     if (element === 'a') {
                         return (
-                            <p key={el.content}>
+                            <p key={el.content + Date.now()}>
                                 <a
                                     href={el.content}
                                     target="_blank"
@@ -90,18 +95,19 @@ export function Post({ author, content, publishedAt }) {
                     placeholder="Deixe um comentário"
                 />
                 <footer>
-                    <button type="submit" disabled={commentInput === ''}>Publicar</button>
+                    <button type="submit" disabled={commentInput.trim() === ''}>Publicar</button>
                 </footer>
             </form>
 
             <div className={styles.commentList}>
                 {comments.map((item) => (
                     <Comment
-                        key={item.content}
+                        key={item.id + item.content + item.author + item.publishedAt}
                         author={item.author}
                         avatar={item.avatar}
                         content={item.content}
                         publishedAt={item.publishedAt}
+                        deleteComment={() => deleteComment(item.id)}
                     />
                 ))}
             </div>

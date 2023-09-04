@@ -7,7 +7,7 @@ import styles from './App.module.css'
 
 const posts = [
     {
-        id: 2,
+        id: Date.now()+1,
         author: {
             avatarUrl: 'https://avatars.githubusercontent.com/u/46717827?v=4',
             name: 'Rodrigo G. Oliveira',
@@ -18,10 +18,10 @@ const posts = [
             { type: 'p', content: 'Esse é outro post teste!' },
             { type: 'a', content: 'https://roulette.gargani.dev/' },
         ],
-        publishedAt: new Date('2023-09-03 19:00'),
+        publishedAt: new Date(Date.now()),
     },
     {
-        id: 1,
+        id: Date.now(),
         author: {
             avatarUrl: 'https://avatars.githubusercontent.com/u/46717827?v=4',
             name: 'Rodrigo G. Oliveira',
@@ -32,7 +32,7 @@ const posts = [
             { type: 'p', content: 'Esse é um post teste!' },
             { type: 'a', content: 'https://gargani.dev' },
         ],
-        publishedAt: new Date('2023-09-03 18:44'),
+        publishedAt: new Date(Date.now()-7200000),
     },
 ]
 
@@ -45,7 +45,7 @@ export function App() {
                 <main>
                     {posts.map((post) => (
                         <Post
-                            key={post.content}
+                            key={post.id + post.content + post.publishedAt}
                             author={post.author}
                             role={post.role}
                             content={post.content}
