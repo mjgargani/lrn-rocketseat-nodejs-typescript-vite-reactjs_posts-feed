@@ -6,12 +6,31 @@ import { useState } from 'react'
 import { newDate } from '../utils/date'
 
 export function Post({ author, content, publishedAt }) {
-    const [comments, setComments] = useState(['Post legal!'])
+    const [comments, setComments] = useState([
+        {
+            id: 1,
+            author: 'Rodrigo G. Oliveira',
+            avatar: 'https://avatars.githubusercontent.com/u/46717827?v=4',
+            content: 'Post bem legal',
+            publishedAt: new Date(Date.now()),
+        },
+    ])
     const [commentInput, setCommentInput] = useState('')
 
     const handleComments = (event) => {
         event.preventDefault()
-        const newComments = [commentInput, ...comments]
+
+        const newComments = [
+            {
+                id: comments.length + 1,
+                author: 'Rodrigo G. Oliveira',
+                avatar: 'https://avatars.githubusercontent.com/u/46717827?v=4',
+                content: commentInput,
+                publishedAt: new Date(Date.now()),
+            },
+            ...comments,
+        ]
+
         setComments(newComments)
         setCommentInput('')
     }
@@ -33,13 +52,16 @@ export function Post({ author, content, publishedAt }) {
                         <span>{author.role}</span>
                     </div>
                 </div>
-                <time title={newDate(publishedAt).dateFormat} dateTime={publishedAt.toISOString()}>
+                <time
+                    title={newDate(publishedAt).dateFormat}
+                    dateTime={publishedAt.toISOString()}
+                >
                     {newDate(publishedAt).relativeDate}
                 </time>
             </header>
 
             <div className={styles.content}>
-                {content.map(el => {
+                {content.map((el) => {
                     const element = el.type
                     if (element === 'p') {
                         return <p key={el.content}>{el.content}</p>
@@ -73,8 +95,14 @@ export function Post({ author, content, publishedAt }) {
             </form>
 
             <div className={styles.commentList}>
-                {comments.map(comment => (
-                    <Comment key={comment} content={comment} publishedAt={new Date(Date.now())}/>
+                {comments.map((item) => (
+                    <Comment
+                        key={item.content}
+                        author={item.author}
+                        avatar={item.avatar}
+                        content={item.content}
+                        publishedAt={item.publishedAt}
+                    />
                 ))}
             </div>
         </article>

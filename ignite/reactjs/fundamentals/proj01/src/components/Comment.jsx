@@ -4,18 +4,15 @@ import { Avatar } from './Avatar'
 import PropTypes from 'prop-types'
 import { newDate } from '../utils/date'
 
-export function Comment({content, publishedAt}) {
+export function Comment({ author, avatar, content, publishedAt }) {
     return (
         <div className={styles.comment}>
-            <Avatar
-                hasBorder={false}
-                src="https://avatars.githubusercontent.com/u/46717827?v=4"
-            />
+            <Avatar hasBorder={false} src={avatar} />
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header>
                         <div className={styles.authorAndTime}>
-                            <strong>Rodrigo</strong>
+                            <strong>{author}</strong>
                             <time
                                 title={newDate(publishedAt).dateFormat}
                                 dateTime={publishedAt}
@@ -42,6 +39,8 @@ export function Comment({content, publishedAt}) {
 }
 
 Comment.propTypes = {
+    author: PropTypes.string,
+    avatar: PropTypes.string,
     content: PropTypes.string,
     publishedAt: PropTypes.instanceOf(Date),
 }
