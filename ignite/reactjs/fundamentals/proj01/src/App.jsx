@@ -11,7 +11,7 @@ const posts = [
         author: {
             avatarUrl: 'https://avatars.githubusercontent.com/u/46717827?v=4',
             name: 'Rodrigo G. Oliveira',
-            role: 'admin',
+            role: 'Web Developer',
         },
         content: [
             { type: 'p', content: 'Olá turma!' },
@@ -25,7 +25,7 @@ const posts = [
         author: {
             avatarUrl: 'https://avatars.githubusercontent.com/u/46717827?v=4',
             name: 'Rodrigo G. Oliveira',
-            role: 'admin',
+            role: 'Web Developer',
         },
         content: [
             { type: 'p', content: 'Olá pessoal!' },
