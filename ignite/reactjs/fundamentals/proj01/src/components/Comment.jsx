@@ -4,7 +4,13 @@ import { Avatar } from './Avatar'
 import PropTypes from 'prop-types'
 import { newDate } from '../utils/date'
 
-export function Comment({ author, avatar, content, publishedAt, deleteComment }) {
+export function Comment({
+    author,
+    avatar,
+    content,
+    publishedAt,
+    onDeleteComment,
+}) {
     return (
         <div className={styles.comment}>
             <Avatar hasBorder={false} src={avatar} />
@@ -20,7 +26,10 @@ export function Comment({ author, avatar, content, publishedAt, deleteComment })
                                 {newDate(publishedAt).relativeDate}
                             </time>
                         </div>
-                        <button title="Deletar comentário" onClick={deleteComment}>
+                        <button
+                            title="Deletar comentário"
+                            onClick={onDeleteComment}
+                        >
                             <Trash size={24} />
                         </button>
                     </header>
@@ -43,5 +52,5 @@ Comment.propTypes = {
     avatar: PropTypes.string,
     content: PropTypes.string,
     publishedAt: PropTypes.instanceOf(Date),
-    deleteComment: PropTypes.func
+    onDeleteComment: PropTypes.func,
 }

@@ -7,7 +7,7 @@ import styles from './App.module.css'
 
 const posts = [
     {
-        id: Date.now()+1,
+        id: Date.now() + 1,
         author: {
             avatarUrl: 'https://avatars.githubusercontent.com/u/46717827?v=4',
             name: 'Rodrigo G. Oliveira',
@@ -32,7 +32,7 @@ const posts = [
             { type: 'p', content: 'Esse é um post teste!' },
             { type: 'a', content: 'https://gargani.dev' },
         ],
-        publishedAt: new Date(Date.now()-7200000),
+        publishedAt: new Date(Date.now() - 7200000),
     },
 ]
 

@@ -8,9 +8,11 @@ import { newDate } from '../utils/date'
 export function Post({ author, content, publishedAt }) {
     const [comments, setComments] = useState([
         {
-            id: Date.now()+3,
+            id: Date.now() + 3,
             author: 'User ' + Date.now(),
-            avatar: `https://xsgames.co/randomusers/assets/avatars/pixel/${Math.round(Math.random()*53)}.jpg`,
+            avatar: `https://xsgames.co/randomusers/assets/avatars/pixel/${Math.round(
+                Math.random() * 53
+            )}.jpg`,
             content: 'Post bem legal',
             publishedAt: new Date(Date.now()),
         },
@@ -24,7 +26,9 @@ export function Post({ author, content, publishedAt }) {
             {
                 id: Date.now(),
                 author: 'User ' + Date.now(),
-                avatar: `https://xsgames.co/randomusers/assets/avatars/pixel/${Math.round(Math.random()*53)}.jpg`,
+                avatar: `https://xsgames.co/randomusers/assets/avatars/pixel/${Math.round(
+                    Math.random() * 53
+                )}.jpg`,
                 content: commentInput,
                 publishedAt: new Date(Date.now()),
             },
@@ -43,8 +47,8 @@ export function Post({ author, content, publishedAt }) {
     }
 
     const deleteComment = (id) => {
-        const newComments = comments.filter(el => el.id !== id);
-        setComments(newComments);
+        const newComments = comments.filter((el) => el.id !== id)
+        setComments(newComments)
     }
 
     return (
@@ -95,19 +99,26 @@ export function Post({ author, content, publishedAt }) {
                     placeholder="Deixe um comentário"
                 />
                 <footer>
-                    <button type="submit" disabled={commentInput.trim() === ''}>Publicar</button>
+                    <button type="submit" disabled={commentInput.trim() === ''}>
+                        Publicar
+                    </button>
                 </footer>
             </form>
 
             <div className={styles.commentList}>
                 {comments.map((item) => (
                     <Comment
-                        key={item.id + item.content + item.author + item.publishedAt}
+                        key={
+                            item.id +
+                            item.content +
+                            item.author +
+                            item.publishedAt
+                        }
                         author={item.author}
                         avatar={item.avatar}
                         content={item.content}
                         publishedAt={item.publishedAt}
-                        deleteComment={() => deleteComment(item.id)}
+                        onDeleteComment={() => deleteComment(item.id)}
                     />
                 ))}
             </div>
