@@ -2,8 +2,9 @@ import { ThumbsUp, Trash } from 'phosphor-react'
 import styles from './Comment.module.css'
 import { Avatar } from './Avatar'
 import PropTypes from 'prop-types'
+import { newDate } from '../utils/date'
 
-export function Comment({content}) {
+export function Comment({content, publishedAt}) {
     return (
         <div className={styles.comment}>
             <Avatar
@@ -13,13 +14,13 @@ export function Comment({content}) {
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header>
-                        <div>
+                        <div className={styles.authorAndTime}>
                             <strong>Rodrigo</strong>
                             <time
-                                title="11 de Maio às 08:13h"
-                                dateTime="2022-05-11 08:13:30"
+                                title={newDate(publishedAt).dateFormat}
+                                dateTime={publishedAt}
                             >
-                                Publicado há 1h
+                                {newDate(publishedAt).relativeDate}
                             </time>
                         </div>
                         <button title="Deletar comentário">
@@ -41,5 +42,6 @@ export function Comment({content}) {
 }
 
 Comment.propTypes = {
-    content: PropTypes.string
+    content: PropTypes.string,
+    publishedAt: PropTypes.instanceOf(Date),
 }

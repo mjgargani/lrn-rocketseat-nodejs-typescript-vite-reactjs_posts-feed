@@ -1,10 +1,9 @@
-import { format, formatDistanceToNow } from 'date-fns'
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 import styles from './Post.module.css'
 import PropTypes from 'prop-types'
-import ptBR from 'date-fns/locale/pt-BR'
 import { useState } from 'react'
+import { newDate } from '../utils/date'
 
 export function Post({ author, content, publishedAt }) {
     const [comments, setComments] = useState(['Post legal!'])
@@ -24,14 +23,6 @@ export function Post({ author, content, publishedAt }) {
         setCommentInput(newCommentInput)
     }
 
-    const dateFormat = format(publishedAt, "d de LLLL às HH:mm'h'", {
-        locale: ptBR,
-    })
-    const relativeDate = formatDistanceToNow(publishedAt, {
-        locale: ptBR,
-        addSuffix: true,
-    })
-
     return (
         <article className={styles.post}>
             <header>
@@ -42,20 +33,20 @@ export function Post({ author, content, publishedAt }) {
                         <span>{author.role}</span>
                     </div>
                 </div>
-                <time title={dateFormat} dateTime={publishedAt.toISOString()}>
-                    {relativeDate}
+                <time title={newDate(publishedAt).dateFormat} dateTime={publishedAt.toISOString()}>
+                    {newDate(publishedAt).relativeDate}
                 </time>
             </header>
 
             <div className={styles.content}>
-                {content.map((el, i) => {
+                {content.map(el => {
                     const element = el.type
                     if (element === 'p') {
-                        return <p key={i}>{el.content}</p>
+                        return <p key={el.content}>{el.content}</p>
                     }
                     if (element === 'a') {
                         return (
-                            <p key={i}>
+                            <p key={el.content}>
                                 <a
                                     href={el.content}
                                     target="_blank"
@@ -82,8 +73,8 @@ export function Post({ author, content, publishedAt }) {
             </form>
 
             <div className={styles.commentList}>
-                {comments.map((el, i) => (
-                    <Comment key={i} content={el}/>
+                {comments.map(comment => (
+                    <Comment key={comment} content={comment} publishedAt={new Date(Date.now())}/>
                 ))}
             </div>
         </article>
