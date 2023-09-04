@@ -1,11 +1,15 @@
 import { ThumbsUp, Trash } from 'phosphor-react'
 import styles from './Comment.module.css'
 import { Avatar } from './Avatar'
+import PropTypes from 'prop-types'
 
-export function Comment() {
+export function Comment({content}) {
     return (
         <div className={styles.comment}>
-            <Avatar hasBorder={false} src="https://avatars.githubusercontent.com/u/46717827?v=4" />
+            <Avatar
+                hasBorder={false}
+                src="https://avatars.githubusercontent.com/u/46717827?v=4"
+            />
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header>
@@ -19,19 +23,23 @@ export function Comment() {
                             </time>
                         </div>
                         <button title="Deletar comentário">
-                          <Trash size={24} />
+                            <Trash size={24} />
                         </button>
                     </header>
-                    <p>Muito bom!</p>
+                    <p>{content}</p>
                 </div>
 
                 <footer>
-                  <button>
-                    <ThumbsUp />
-                    Aplaudir <span>20</span>
-                  </button>
+                    <button>
+                        <ThumbsUp />
+                        Aplaudir <span>20</span>
+                    </button>
                 </footer>
             </div>
         </div>
     )
+}
+
+Comment.propTypes = {
+    content: PropTypes.string
 }

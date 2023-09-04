@@ -11,29 +11,29 @@ const posts = [
         author: {
             avatarUrl: 'https://avatars.githubusercontent.com/u/46717827?v=4',
             name: 'Rodrigo G. Oliveira',
-            role: 'admin'
+            role: 'admin',
         },
         content: [
-            {type: 'p', content: 'Olá turma!'},
-            {type: 'p', content: 'Esse é outro post teste!'},
-            {type: 'a', content: 'https://roulette.gargani.dev/'},
+            { type: 'p', content: 'Olá turma!' },
+            { type: 'p', content: 'Esse é outro post teste!' },
+            { type: 'a', content: 'https://roulette.gargani.dev/' },
         ],
-        publishedAt: new Date('2023-09-03 19:00')
+        publishedAt: new Date('2023-09-03 19:00'),
     },
     {
         id: 1,
         author: {
             avatarUrl: 'https://avatars.githubusercontent.com/u/46717827?v=4',
             name: 'Rodrigo G. Oliveira',
-            role: 'admin'
+            role: 'admin',
         },
         content: [
-            {type: 'p', content: 'Olá pessoal!'},
-            {type: 'p', content: 'Esse é um post teste!'},
-            {type: 'a', content: 'https://gargani.dev'},
+            { type: 'p', content: 'Olá pessoal!' },
+            { type: 'p', content: 'Esse é um post teste!' },
+            { type: 'a', content: 'https://gargani.dev' },
         ],
-        publishedAt: new Date('2023-09-03 18:44')
-    }
+        publishedAt: new Date('2023-09-03 18:44'),
+    },
 ]
 
 export function App() {
@@ -43,7 +43,7 @@ export function App() {
             <div className={styles.wrapper}>
                 <Sidebar />
                 <main>
-                    { posts.map(post => (
+                    {posts.map((post) => (
                         <Post
                             key={post.id}
                             author={post.author}
