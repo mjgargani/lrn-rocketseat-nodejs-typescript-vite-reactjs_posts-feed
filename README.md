@@ -1,5 +1,7 @@
 # rocketseat-nodejs-ts-vite-reactjs_rs-learning-posts-feed
 
+![thumbnail](./thumbnail.webp)
+
 Feed de Posts. Primeiro projeto no programa `Ignite`, na `Rocketseat` (Set/23)
 
 Posts feed. First project in the `Ignite` program, on `Rocketseat` Bootcamp (Sep/23)
