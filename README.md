@@ -8,8 +8,8 @@ Posts feed. First project in the `Ignite` program, on `Rocketseat` Bootcamp (Sep
 
 ## how-to
 
-*Tested on node 18.16.0 and npm 9.5.1*
+_Tested on node 18.16.0 and npm 9.5.1_
 
 ```bash
 npm i && npm run dev
-``````
+```

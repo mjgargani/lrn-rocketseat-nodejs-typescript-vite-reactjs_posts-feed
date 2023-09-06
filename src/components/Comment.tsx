@@ -1,9 +1,17 @@
 import { ThumbsUp, Trash } from 'phosphor-react'
 import styles from './Comment.module.css'
 import { Avatar } from './Avatar'
-import PropTypes from 'prop-types'
 import { newDate } from '../utils/date'
 
+interface CommentProps {
+    author: string
+    avatar: string
+    content: string
+    publishedAt: Date
+    applauses: number
+    onApplaudComment: (...args: any) => void
+    onDeleteComment: (...args: any) => void
+}
 export function Comment({
     author,
     avatar,
@@ -12,7 +20,7 @@ export function Comment({
     applauses,
     onApplaudComment,
     onDeleteComment,
-}) {
+}: CommentProps) {
     return (
         <div className={styles.comment}>
             <Avatar hasBorder={false} src={avatar} />
@@ -23,7 +31,7 @@ export function Comment({
                             <strong>{author}</strong>
                             <time
                                 title={newDate(publishedAt).dateFormat}
-                                dateTime={publishedAt}
+                                dateTime={publishedAt.toISOString()}
                             >
                                 {newDate(publishedAt).relativeDate}
                             </time>
@@ -47,14 +55,4 @@ export function Comment({
             </div>
         </div>
     )
-}
-
-Comment.propTypes = {
-    author: PropTypes.string,
-    avatar: PropTypes.string,
-    content: PropTypes.string,
-    publishedAt: PropTypes.instanceOf(Date),
-    applauses: PropTypes.number,
-    onApplaudComment: PropTypes.func,
-    onDeleteComment: PropTypes.func,
 }

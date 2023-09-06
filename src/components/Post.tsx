@@ -1,11 +1,25 @@
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 import styles from './Post.module.css'
-import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { newDate } from '../utils/date'
 
-export function Post({ author, content, publishedAt }) {
+interface Author {
+    name: string
+    role: string
+    avatarUrl: string
+}
+
+interface Content {
+    type: 'p' | 'a'
+    content: string
+}
+interface PostProps {
+    author: Author
+    publishedAt: Date
+    content: Content[]
+}
+export function Post({ author, content, publishedAt }: PostProps) {
     const [comments, setComments] = useState([
         {
             id: Date.now() + 3,
@@ -15,12 +29,12 @@ export function Post({ author, content, publishedAt }) {
             )}.jpg`,
             content: 'Post bem legal',
             publishedAt: new Date(Date.now()),
-            applauses: Math.ceil(Math.random()*100)
+            applauses: Math.ceil(Math.random() * 100),
         },
     ])
     const [commentInput, setCommentInput] = useState('')
 
-    const handleComments = (event) => {
+    const handleComments = (event: React.FormEvent) => {
         event.preventDefault()
 
         const newComments = [
@@ -32,7 +46,7 @@ export function Post({ author, content, publishedAt }) {
                 )}.jpg`,
                 content: commentInput,
                 publishedAt: new Date(Date.now()),
-                applauses: 0
+                applauses: 0,
             },
             ...comments,
         ]
@@ -41,30 +55,36 @@ export function Post({ author, content, publishedAt }) {
         setCommentInput('')
     }
 
-    const handleCommentInput = (event) => {
+    const handleCommentInput = (
+        event: React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
         event.preventDefault()
         const { target } = event
-        target.setCustomValidity("");
+        target.setCustomValidity('')
         const newCommentInput = target.value
         setCommentInput(newCommentInput)
     }
 
-    const handleInvalidComment =(event) => {
-        const {target} = event;
-        target.setCustomValidity("Esse campo é obrigatório");
+    const handleInvalidComment = (
+        event: React.InvalidEvent<HTMLTextAreaElement>
+    ) => {
+        const { target } = event
+        target.setCustomValidity('Esse campo é obrigatório')
     }
 
-    const deleteComment = (id) => {
-        const newComments = comments.filter(el => el.id !== id)
+    const deleteComment = (id: number) => {
+        const newComments = comments.filter((el) => el.id !== id)
         setComments(newComments)
     }
 
-    const applaudComment = (id) => {
-        const newComments = comments.map(el => el.id === id ? { ...el, applauses: el.applauses + 1 } : el)
+    const applaudComment = (id: number) => {
+        const newComments = comments.map((el) =>
+            el.id === id ? { ...el, applauses: el.applauses + 1 } : el
+        )
         setComments(newComments)
     }
 
-    const isCommentDisabled = commentInput.trim() === '';
+    const isCommentDisabled = commentInput.trim() === ''
 
     return (
         <article className={styles.post}>
@@ -85,7 +105,7 @@ export function Post({ author, content, publishedAt }) {
             </header>
 
             <div className={styles.content}>
-                {content.map(el => {
+                {content.map((el) => {
                     const element = el.type
                     if (element === 'p') {
                         return <p key={el.content + Date.now()}>{el.content}</p>
@@ -136,17 +156,11 @@ export function Post({ author, content, publishedAt }) {
                         content={item.content}
                         publishedAt={item.publishedAt}
                         applauses={item.applauses}
-                        onApplaudComment = {() => applaudComment(item.id)}
+                        onApplaudComment={() => applaudComment(item.id)}
                         onDeleteComment={() => deleteComment(item.id)}
                     />
                 ))}
             </div>
         </article>
     )
-}
-
-Post.propTypes = {
-    author: PropTypes.object,
-    content: PropTypes.arrayOf(PropTypes.object),
-    publishedAt: PropTypes.instanceOf(Date),
 }

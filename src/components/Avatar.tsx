@@ -1,18 +1,18 @@
 import styles from './Avatar.module.css'
-import PropTypes from 'prop-types'
+interface AvatarProps {
+    hasBorder?: boolean
+    src: string
+    alt?: string
+}
 
-export function Avatar({ hasBorder = true, src }) {
+export function Avatar({ hasBorder = true, src, alt }: AvatarProps) {
     return (
         <img
             className={
                 hasBorder ? styles.avatarWithBorder : styles.avatarWithNoBorder
             }
             src={src}
+            alt={alt}
         />
     )
-}
-
-Avatar.propTypes = {
-    hasBorder: PropTypes.bool,
-    src: PropTypes.string,
 }
