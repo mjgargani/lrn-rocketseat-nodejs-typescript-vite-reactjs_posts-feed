@@ -38,3 +38,5 @@ Imutabilidade
 Enclausuramento
 
 -   No React, o enclausuramento define um escopo/contexto de execução. Em uma função, por exemplo, não é possível alterar o mesmo estado duas vezes no mesmo contexto, sem que se use um atributo específico do callback, para recuperar o estado mais recente daquela variável
+
+*`let` vem de `let it changes`
