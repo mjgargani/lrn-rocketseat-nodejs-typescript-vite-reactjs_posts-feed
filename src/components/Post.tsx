@@ -14,12 +14,14 @@ interface Content {
     type: 'p' | 'a'
     content: string
 }
-interface PostProps {
+export interface PostProps {
+    id: number;
     author: Author
     publishedAt: Date
     content: Content[]
 }
-export function Post({ author, content, publishedAt }: PostProps) {
+
+export function Post({ id, author, content, publishedAt }: PostProps) {
     const [comments, setComments] = useState([
         {
             id: Date.now() + 3,
